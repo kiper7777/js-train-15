@@ -246,6 +246,13 @@ console.log(getFractionalPart(12.34567));
  *  Поверне: Найбільше число округлене до найближчого цілого.
  */
 function compareAndRound(num1, num2) {
+  if (typeof num1 !== "number" || typeof num2 !== "number") {
+    console.log("Помилка: обидва аргументи мають бути числами.");
+    return null;
+  }
+  const maxNumber = Math.max(num1, num2);
+  const roundedNumber = Math.round(maxNumber);
+  return roundedNumber;
   // Перевірка, чи обидва аргументи є числами. Якщо хоча б один аргумент не є числом, виводимо повідомлення "Помилка: обидва аргументи мають бути числами.".
   // Повертаємо null, що свідчить про неможливість обробки вхідних даних.
   // Визначаємо найбільше число.
@@ -267,6 +274,16 @@ console.log(compareAndRound(13.4, 15.7));
  *  Поверне: Оцінку суми прибутку від інвестицій.
  */
 function estimateInvestment(principal, interestRate, years) {
+  if (
+    typeof principal !== "number" ||
+    typeof interestRate !== "number" ||
+    typeof years !== "number"
+  ) {
+    console.log("Помилка: усі аргументи мають бути числами.");
+    return null;
+  }
+  const investment = Math.round(principal * Math.pow(1 + interestRate, years));
+  return investment;
   // Перевірка, чи усі аргументи є числами. Якщо хоча б один аргумент не є числом, виводимо повідомлення про помилку в консоль.
   // Повертаємо null, що свідчить про неможливість обробки вхідних даних.
   // Розраховуємо суму інвестицій за формулою P*(1+rate)^years, де P - початкова сума інвестицій, rate - річна процентна ставка, years - кількість років.
@@ -290,6 +307,20 @@ console.log(estimateInvestment(1000, 0.05, 5));
  * Повертає чи перевищує totalPrice maxPrice.
  */
 function isTotalPriceExceedsMaxPrice(products, maxPrice) {
+  if (!Array.isArray(products)) {
+    console.log("Помилка: аргумент 'products' має бути масивом.");
+    return null;
+  }
+  if (typeof maxPrice !== "number") {
+    console.log("Помилка: аргумент 'maxPrice' має бути числом.");
+    return null;
+  }
+  let totalPrice = products.reduce((accumulator, product) => {
+    return accumulator + product.price;
+  }, 0);
+  totalPrice = Math.fround(totalPrice);
+  maxPrice = Math.fround(maxPrice);
+  return totalPrice > maxPrice;
   // Перевіряємо, чи аргумент products є масивом.
   // Якщо products не є масивом, виводимо повідомлення про помилку.
   // Повертаємо null, що свідчить про неможливість обробки вхідних даних.
