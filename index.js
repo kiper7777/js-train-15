@@ -7,6 +7,15 @@
  * Повертає випадковий пароль.
  */
 function generateRandomPassword(length) {
+  let password = "";
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    const randomCharacters = characters.charAt(randomIndex);
+    password += randomCharacters;
+  }
+  return password;
   // Створюємо порожній рядок для збереження паролю.
   // Створюємо рядок characters "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789" з доступних символів для паролю.
   // За допомогою циклу for проходимось по кожному символу рядка characters
@@ -27,8 +36,14 @@ console.log(generateRandomPassword(8));
  * Поверне: Площу кола.
  */
 function calculateCircleArea(radius) {
+  if (typeof radius !== "number") {
+    console.log("Помилка: радіус має бути числом");
+    return null;
+  }
+  const area = Math.PI * Math.pow(radius, 2);
+  return area;
   // Перевірка, чи переданий радіус є числом.
-  // Якщо радіус не є числом, виводимо в консоль повідомлення про помилку.
+  // Якщо радіус не є числом, виводимо в консоль повідомлення про помилку "Помилка: радіус має бути числом".
   // Повертаємо null, щоб показати, що обчислення не можливе.
   // Обчислення площі кола за формулою PI * r^2, де PI - число Пі, а r - радіус.
   // Повертаємо обчислену площу кола.
@@ -46,10 +61,17 @@ console.log(calculateCircleArea(5));
  * Поверне: Об'єкт, що містить мінімальне та максимальне число.
  */
 function findMinMax(numbers) {
+  if (!Array.isArray(numbers)) {
+    console.log("Помилка: параметр має бути масивом");
+    return null;
+  }
+  const min = Math.min(...numbers);
+  const max = Math.max(...numbers);
+  return { min, max };
   // Перевіряємо, чи переданий параметр є масивом.
   // Якщо переданий параметр не є масивом, виводимо в консоль повідомлення про помилку.
   // Повертаємо null, що свідчить про неможливість обробки вхідних даних.
-  // Записуємо мінімальне значення масиву в змінну mix
+  // Записуємо мінімальне значення масиву в змінну min
   // Записуємо максимальне значення масиву в змінну max
   // Повертаємо об'єкт {min,max}, що містить знайдені мінімальне та максимальне число.
 }
@@ -67,6 +89,12 @@ console.log(findMinMax([5, 2, 9, 1, 5, 6, 7, 8]));
  * Поверне: Довжину гіпотенузи.
  */
 function calculateHypotenuse(a, b) {
+  if (typeof a !== "number" || typeof b !== "number") {
+    console.log("Помилка: довжини катетів мають бути числами");
+    return null;
+  }
+  const c = Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
+  return c;
   // Перевіряємо, чи довжини катетів є числами. Оператор typeof повертає рядок, що вказує тип непустого операнда.
   // Якщо довжини катетів не є числами, виводимо в консоль повідомлення про помилку.
   // Повертаємо null, що свідчить про неможливість обробки вхідних даних.
@@ -86,12 +114,26 @@ console.log(calculateHypotenuse(3, 4));
  *  Поверне: Об'єкт з заокругленими значеннями числових властивостей.
  */
 function roundObjectValues(obj) {
+  if (typeof obj !== "object" || obj === null) {
+    console.log("Помилка: аргумент має бути об'єктом");
+    return null;
+  }
   // Перевіряємо, чи аргумент є об'єктом.
   // Також перевіряємо, що аргумент не є null.
   // Якщо аргумент не є об'єктом або є null, виводимо повідомлення "Помилка: аргумент має бути об'єктом".
   // Повертаємо null, що свідчить про неможливість обробки вхідних даних.
   // Отримуємо масив пар [ключ, значення] з об'єкта.
+  const entries = Object.entries(obj);
   // Перебереємо за допомогою методу map кожну пару [ключ, значення].
+  const roundedEntries = entries.map(([key, value]) => {
+    if (typeof value === "number") {
+      return [key, Math.round(value)];
+    } else {
+      return [key, value];
+    }
+  });
+  const roundedObj = Object.fromEntries(roundedEntries);
+  return roundedObj;
   // Перевіряємо, чи значення є числом.
   // Якщо значення є числом, округлюємо його до найближчого цілого та повертаємо нову пару [ключ, значення].
   // Якщо значення не є числом, повертаємо оригінальну пару [ключ, значення].
@@ -119,6 +161,12 @@ console.log(roundObjectValues(myObject));
  * Поверне: Об'єм циліндра.
  */
 function calculateVolumeCylinder(radius, height) {
+  if (typeof radius !== "number" || typeof height !== "number") {
+    console.log("Помилка: радіус і висота мають бути числами");
+    return null;
+  }
+  const volume = Math.ceil(Math.PI * Math.pow(radius, 2) * height);
+  return volume;
   // Перевіряємо, чи є радіус і висота числами. Якщо хоча б один з аргументів не є числом, виводимо повідомлення про помилку в консоль.
   // Повертаємо null, що свідчить про неможливість обробки вхідних даних.
   // Обчислюємо об'єм циліндра за формулою V = PI * r^2 * h, де PI - число Пі, r - радіус, h - висота.
@@ -138,6 +186,17 @@ console.log(calculateVolumeCylinder(3, 5));
  * Поверне: Сума додатніх чисел.
  */
 function sumPositiveNumbers(numbers) {
+  if (!Array.isArray(numbers)) {
+    console.log("Помилка: аргумент має бути масивом чисел");
+    return null;
+  }
+  let sum = 0;
+  for (let i = 0; i < numbers.length; i++) {
+    if (Math.sign(numbers[i]) === 1) {
+      sum += numbers[i];
+    }
+  }
+  return sum;
   // Перевіряємо, чи є numbers масивом. Якщо numbers не є масивом, виводимо повідомлення "Помилка: аргумент має бути масивом чисел".
   // Повертаємо null, що свідчить про неможливість обробки вхідних даних.
   // Ініціалізуємо змінну для збереження суми додатніх чисел.
@@ -158,6 +217,14 @@ console.log(sumPositiveNumbers([-5, 3, 2, -1, 7, -6]));
  * Поверне: дробова частина числа.
  */
 function getFractionalPart(num) {
+  if (typeof num !== "number") {
+    console.log("Помилка: вхідний аргумент має бути числом.");
+    return null;
+  }
+  const integerPart = Math.trunc(num);
+  let fractionalPart = num - integerPart;
+  fractionalPart = Math.fround(fractionalPart);
+  return fractionalPart;
   // Перевіряємо, чи є num числом. Якщо num не є числом, виводимо повідомлення "Помилка: вхідний аргумент має бути числом.".
   // Повертаємо null, що свідчить про неможливість обробки вхідних даних.
   // Округляємо відкидуючи дробову частину.
